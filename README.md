@@ -13,7 +13,7 @@ sudo pip3 install psutil telebot tqdm
 
 3. Create a Telegram bot and get the bot token.
 4. Edit the TOKEN and CHAT_ID variables in the script with your bot token and chat ID, respectively.
-5. Copy `raspi-boturils/main.py` to `/usr/local/bin/`
+5. Copy `raspi-botutils.py` to `/usr/local/bin/`
 
 ```sh
 cp raspi-botutils/main.py /usr/local/bin
