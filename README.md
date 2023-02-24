@@ -35,3 +35,6 @@ The script provides the following system information:
 - System uptime in days, hours, and minutes.
 
 The information is sent as a formatted message to the specified Telegram chat using the `/report` command.
+
+![image](https://user-images.githubusercontent.com/69294607/221217501-cbd6c103-a092-49ac-99ac-a19de27a7b4f.png)
+
