@@ -1,0 +1,13 @@
+[Unit]
+Description=Monitoring Raspi using Telegram
+After=network-online.target
+
+[Service]
+User=root
+ExecStart=/usr/bin/python3 /usr/local/bin/raspi-botutils/main.py
+Restart=always
+RestartSec=10
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target
