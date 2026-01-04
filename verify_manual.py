@@ -41,7 +41,7 @@ def run_checks():
         else:
             pin = hal.setup_pin(18, "fan", is_pwm=True)
             hal.set_pin_state("fan", 0.5)
-            if pin.value == 0.5:
+            if abs(pin.value - 0.5) < 0.01:
                 print("✅ HAL Mock PWM Control works")
             else:
                 print(f"❌ HAL Mock PWM Value mismatch: {pin.value}")

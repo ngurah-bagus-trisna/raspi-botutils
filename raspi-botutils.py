@@ -121,7 +121,7 @@ def gpio_control(message):
 
         bot.reply_to(message, f"✅ Set Pin {pin} to {state.upper()}")
         
-    except:
+    except (ValueError, IndexError):
         bot.reply_to(message, "Usage: /gpio <pin> <on/off>")
 
 # --- Callbacks ---

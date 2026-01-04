@@ -41,7 +41,7 @@ def restart_service(service_name):
     try:
         subprocess.check_call(['sudo', 'systemctl', 'restart', service_name])
         return True
-    except:
+    except Exception:
         return False
 
 def get_top_processes(limit=5):
@@ -51,7 +51,7 @@ def get_top_processes(limit=5):
              # Force a CPU read
              p.cpu_percent()
              procs.append(p)
-        except: pass
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess): pass
     
     # Sort
     top = sorted(procs, key=lambda p: p.info['cpu_percent'] or 0, reverse=True)[:limit]

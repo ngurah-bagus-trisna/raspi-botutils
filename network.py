@@ -15,13 +15,13 @@ def get_local_ip():
         local_ip = s.getsockname()[0]
         s.close()
         return local_ip
-    except:
+    except Exception:
         return "127.0.0.1"
 
 def get_public_ip():
     try:
         return requests.get('https://api.ipify.org', timeout=3).text
-    except:
+    except Exception:
         return "Unknown"
 
 def run_speedtest():
