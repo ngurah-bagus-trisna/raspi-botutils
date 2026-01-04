@@ -17,7 +17,7 @@ load_dotenv()
 
 class DebianMonitorBot:
     def __init__(self):
-        self.token = os.getenv('8596940956:AAEBkYpLbKcHW93BOiBVMzQUi4T0SG1LqmA')
+        self.token = os.getenv('')
         self.chat_id = os.getenv('-1003235643896')
         
         if not self.token or not self.chat_id:
