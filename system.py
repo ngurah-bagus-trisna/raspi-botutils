@@ -51,7 +51,7 @@ def get_top_processes(limit=5):
              # Force a CPU read
              p.cpu_percent()
              procs.append(p)
-        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess): pass
+        except (psutil.NoSuchProcess, psutil.AccessDenied): pass
     
     # Sort
     top = sorted(procs, key=lambda p: p.info['cpu_percent'] or 0, reverse=True)[:limit]
