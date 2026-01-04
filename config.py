@@ -26,6 +26,7 @@ ENABLE_DOCKER = os.getenv('ENABLE_DOCKER', 'true').lower() == 'true'
 ALERT_CPU_THRESHOLD = int(os.getenv('ALERT_CPU_THRESHOLD', 90))
 ALERT_TEMP_THRESHOLD = int(os.getenv('ALERT_TEMP_THRESHOLD', 80))
 ALERT_DISK_THRESHOLD = int(os.getenv('ALERT_DISK_THRESHOLD', 90))
+DNS_CHECK_IP = os.getenv('DNS_CHECK_IP', '8.8.8.8')
 
 # Paths
 DB_FILE = os.getenv('DB_FILE', 'metrics.db')

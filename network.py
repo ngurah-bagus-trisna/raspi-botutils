@@ -5,13 +5,14 @@ import requests
 import json
 import socket
 import struct
+import config
 
 logger = logging.getLogger(__name__)
 
 def get_local_ip():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
+        s.connect((config.DNS_CHECK_IP, 80))
         local_ip = s.getsockname()[0]
         s.close()
         return local_ip

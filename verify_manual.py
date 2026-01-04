@@ -13,9 +13,11 @@ sys.modules['matplotlib.pyplot'] = MagicMock()
 sys.modules['matplotlib.dates'] = MagicMock()
 sys.modules['dotenv'] = MagicMock()
 
+TEST_MOCK_IP = "1.2.3.4"
+
 # Setup Mock behavior
 sys.modules['psutil'].cpu_percent.return_value = 15.5
-sys.modules['requests'].get.return_value.text = "1.2.3.4"
+sys.modules['requests'].get.return_value.text = TEST_MOCK_IP
 
 # --- Import (Flat Structure) ---
 try:
