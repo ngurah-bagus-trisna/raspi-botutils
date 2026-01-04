@@ -2,23 +2,28 @@
 
 ## Supported Versions
 
-The following versions of `raspi-botutils` are currently supported with security updates:
+To ensure the security and stability of your system, we strictly recommend using the latest supported versions of `raspi-botutils`. Security patches and updates are prioritized for the following releases:
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 3.x     | :white_check_mark: |
-| < 3.0   | :x:                |
+| Version | Status | Security Updates |
+| :---: | :---: | :---: |
+| **3.x** | **Stable** | :white_check_mark: Supported |
+| < 3.0 | Legacy | :x: End of Life |
 
 ## Reporting a Vulnerability
 
-We take security seriously. If you discover a vulnerability, please report it by **opening a new issue** in this repository.
+We take the security of `raspi-botutils` seriously. If you believe you have found a security vulnerability, we appreciate your effort in responsibly disclosing it to us.
 
-### How to Report
-1.  Go to the [Issues tab](https://github.com/LightYagami28/raspi-botutils/issues).
-2.  Click on **New Issue**.
-3.  Provide a detailed description of the vulnerability, including steps to reproduce it.
-4.  Please label the issue as `security` if possible.
+### Disclosure Process
 
-**Note:** We currently do not have a dedicated private email for security reporting. Please simply open an issue, but avoid posting sensitive credentials or live tokens publicly.
+Currently, we handle security reports via our GitHub Issue Tracker. Please follow these steps to report a vulnerability:
 
-We will try to address all security vulnerabilities as soon as possible.
+1.  **Open an Issue**: Navigate to the [Issues tab](https://github.com/LightYagami28/raspi-botutils/issues) and click "New Issue".
+2.  **Label Properly**: If possible, add a `security` label or prefix the title with `[SECURITY]`.
+3.  **Provide Detail**: Include a clear description of the vulnerability, the potential impact, and steps to reproduce it. 
+    *   *Note: To protect the community, please avoid posting active credentials or dangerous exploit payloads in the public issue.*
+4.  **Wait for Response**: A project maintainer will acknowledge your report and work on a remediation plan.
+
+### Response Timeline
+We are committed to addressing security issues promptly. You can expect an initial acknowledgement within 48 hours of your report.
+
+Thank you for helping keep `raspi-botutils` safe and secure.
