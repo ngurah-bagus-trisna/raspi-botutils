@@ -1,0 +1,82 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.9, pytest-8.0.0, pluggy-1.6.0 -- C:\Users\maule\Desktop\repo\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\maule\Desktop\repo\raspi-botutils
+plugins: cov-4.1.0
+collecting ... collected 3 items
+
+test_database.py::test_init_db PASSED                                    [ 33%]
+test_database.py::test_init_db ERROR                                     [ 33%]
+test_database.py::test_insert_and_get_metrics ERROR                      [ 66%]
+test_database.py::test_audit_log ERROR                                   [100%]
+
+=================================== ERRORS ====================================
+______________________ ERROR at teardown of test_init_db ______________________
+
+    @pytest.fixture
+    def db_manager():
+        # Use valid path for DB, or mock config.DB_FILE
+        # For testing, we can use a temporary file or :memory: if the class supports injection.
+        # The class reads config.DB_FILE. Let's patch config.DB_FILE.
+    
+        test_db = "test_metrics.db"
+    
+        # Patch the config.DB_FILE in the database module scope
+        original_db = database.config.DB_FILE
+        database.config.DB_FILE = test_db
+    
+        if os.path.exists(test_db):
+            os.remove(test_db)
+    
+        db = database.DatabaseManager()
+        yield db
+    
+        # Teardown
+        if os.path.exists(test_db):
+>           os.remove(test_db)
+E           PermissionError: [WinError 32] Impossibile accedere al file. Il file Þ utilizzato da un altro processo: 'test_metrics.db'
+
+test_database.py:27: PermissionError
+________________ ERROR at setup of test_insert_and_get_metrics ________________
+
+    @pytest.fixture
+    def db_manager():
+        # Use valid path for DB, or mock config.DB_FILE
+        # For testing, we can use a temporary file or :memory: if the class supports injection.
+        # The class reads config.DB_FILE. Let's patch config.DB_FILE.
+    
+        test_db = "test_metrics.db"
+    
+        # Patch the config.DB_FILE in the database module scope
+        original_db = database.config.DB_FILE
+        database.config.DB_FILE = test_db
+    
+        if os.path.exists(test_db):
+>           os.remove(test_db)
+E           PermissionError: [WinError 32] Impossibile accedere al file. Il file Þ utilizzato da un altro processo: 'test_metrics.db'
+
+test_database.py:20: PermissionError
+______________________ ERROR at setup of test_audit_log _______________________
+
+    @pytest.fixture
+    def db_manager():
+        # Use valid path for DB, or mock config.DB_FILE
+        # For testing, we can use a temporary file or :memory: if the class supports injection.
+        # The class reads config.DB_FILE. Let's patch config.DB_FILE.
+    
+        test_db = "test_metrics.db"
+    
+        # Patch the config.DB_FILE in the database module scope
+        original_db = database.config.DB_FILE
+        database.config.DB_FILE = test_db
+    
+        if os.path.exists(test_db):
+>           os.remove(test_db)
+E           PermissionError: [WinError 32] Impossibile accedere al file. Il file Þ utilizzato da un altro processo: 'test_metrics.db'
+
+test_database.py:20: PermissionError
+=========================== short test summary info ===========================
+ERROR test_database.py::test_init_db - PermissionError: [WinError 32] Impossi...
+ERROR test_database.py::test_insert_and_get_metrics - PermissionError: [WinEr...
+ERROR test_database.py::test_audit_log - PermissionError: [WinError 32] Impos...
+========================= 1 passed, 3 errors in 0.09s =========================

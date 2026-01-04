@@ -1,0 +1,138 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.9, pytest-8.0.0, pluggy-1.6.0 -- C:\Users\maule\Desktop\repo\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\maule\Desktop\repo\raspi-botutils
+plugins: cov-4.1.0
+collecting ... collected 21 items
+
+test_config.py::test_config_defaults PASSED                              [  4%]
+test_config.py::test_setup_logging PASSED                                [  9%]
+test_database.py::test_init_db PASSED                                    [ 14%]
+test_database.py::test_init_db ERROR                                     [ 14%]
+test_database.py::test_insert_and_get_metrics ERROR                      [ 19%]
+test_database.py::test_audit_log ERROR                                   [ 23%]
+test_hardware.py::test_mock_mode_fallback PASSED                         [ 28%]
+test_hardware.py::test_cpu_temp PASSED                                   [ 33%]
+test_hardware.py::test_setup_pin_mock FAILED                             [ 38%]
+test_hardware.py::test_vcgencmd_mock PASSED                              [ 42%]
+test_network.py::test_get_local_ip PASSED                                [ 47%]
+test_network.py::test_get_local_ip_failure PASSED                        [ 52%]
+test_network.py::test_get_public_ip PASSED                               [ 57%]
+test_network.py::test_get_public_ip_failure PASSED                       [ 61%]
+test_network.py::test_speedtest PASSED                                   [ 66%]
+test_network.py::test_speedtest_failure PASSED                           [ 71%]
+test_network.py::test_wol PASSED                                         [ 76%]
+test_network.py::test_wol_invalid PASSED                                 [ 80%]
+test_system.py::test_get_uptime PASSED                                   [ 85%]
+test_system.py::test_reboot_shutdown PASSED                              [ 90%]
+test_system.py::test_service_status PASSED                               [ 95%]
+test_system.py::test_kill_process PASSED                                 [100%]
+
+=================================== ERRORS ====================================
+______________________ ERROR at teardown of test_init_db ______________________
+
+    @pytest.fixture
+    def db_manager():
+        # Use valid path for DB, or mock config.DB_FILE
+        # For testing, we can use a temporary file or :memory: if the class supports injection.
+        # The class reads config.DB_FILE. Let's patch config.DB_FILE.
+    
+        test_db = "test_metrics.db"
+    
+        # Patch the config.DB_FILE in the database module scope
+        original_db = database.config.DB_FILE
+        database.config.DB_FILE = test_db
+    
+        if os.path.exists(test_db):
+            os.remove(test_db)
+    
+        db = database.DatabaseManager()
+        yield db
+    
+        # Teardown
+        if os.path.exists(test_db):
+>           os.remove(test_db)
+E           PermissionError: [WinError 32] Impossibile accedere al file. Il file Þ utilizzato da un altro processo: 'test_metrics.db'
+
+test_database.py:27: PermissionError
+________________ ERROR at setup of test_insert_and_get_metrics ________________
+
+    @pytest.fixture
+    def db_manager():
+        # Use valid path for DB, or mock config.DB_FILE
+        # For testing, we can use a temporary file or :memory: if the class supports injection.
+        # The class reads config.DB_FILE. Let's patch config.DB_FILE.
+    
+        test_db = "test_metrics.db"
+    
+        # Patch the config.DB_FILE in the database module scope
+        original_db = database.config.DB_FILE
+        database.config.DB_FILE = test_db
+    
+        if os.path.exists(test_db):
+>           os.remove(test_db)
+E           PermissionError: [WinError 32] Impossibile accedere al file. Il file Þ utilizzato da un altro processo: 'test_metrics.db'
+
+test_database.py:20: PermissionError
+______________________ ERROR at setup of test_audit_log _______________________
+
+    @pytest.fixture
+    def db_manager():
+        # Use valid path for DB, or mock config.DB_FILE
+        # For testing, we can use a temporary file or :memory: if the class supports injection.
+        # The class reads config.DB_FILE. Let's patch config.DB_FILE.
+    
+        test_db = "test_metrics.db"
+    
+        # Patch the config.DB_FILE in the database module scope
+        original_db = database.config.DB_FILE
+        database.config.DB_FILE = test_db
+    
+        if os.path.exists(test_db):
+>           os.remove(test_db)
+E           PermissionError: [WinError 32] Impossibile accedere al file. Il file Þ utilizzato da un altro processo: 'test_metrics.db'
+
+test_database.py:20: PermissionError
+================================== FAILURES ===================================
+_____________________________ test_setup_pin_mock _____________________________
+
+hal = <hardware.HardwareManager object at 0x000002909A0DF9D0>
+
+    def test_setup_pin_mock(hal):
+        # Depending on mode, it returns a MockDevice or Real Device
+        # We can inspect the returned object
+        pin = hal.setup_pin(18, 'test_fan')
+>       assert pin is not None
+E       assert None is not None
+
+test_hardware.py:29: AssertionError
+------------------------------ Captured log call ------------------------------
+ERROR    hardware:hardware.py:54 HARDWARE: Failed to setup pin 18: Unable to load any default pin factory!
+============================== warnings summary ===============================
+test_hardware.py::test_cpu_temp
+test_hardware.py::test_setup_pin_mock
+  C:\Users\maule\Desktop\repo\.venv\Lib\site-packages\gpiozero\devices.py:300: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+    warnings.warn(
+
+test_hardware.py::test_cpu_temp
+test_hardware.py::test_setup_pin_mock
+  C:\Users\maule\Desktop\repo\.venv\Lib\site-packages\gpiozero\devices.py:300: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+    warnings.warn(
+
+test_hardware.py::test_cpu_temp
+test_hardware.py::test_setup_pin_mock
+  C:\Users\maule\Desktop\repo\.venv\Lib\site-packages\gpiozero\devices.py:300: PinFactoryFallback: Falling back from pigpio: No module named 'pigpio'
+    warnings.warn(
+
+test_hardware.py::test_cpu_temp
+test_hardware.py::test_setup_pin_mock
+  C:\Users\maule\Desktop\repo\.venv\Lib\site-packages\gpiozero\devices.py:300: PinFactoryFallback: Falling back from native: [Errno 2] No such file or directory: '/proc/cpuinfo'
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED test_hardware.py::test_setup_pin_mock - assert None is not None
+ERROR test_database.py::test_init_db - PermissionError: [WinError 32] Impossi...
+ERROR test_database.py::test_insert_and_get_metrics - PermissionError: [WinEr...
+ERROR test_database.py::test_audit_log - PermissionError: [WinError 32] Impos...
+============= 1 failed, 18 passed, 8 warnings, 3 errors in 0.26s ==============
