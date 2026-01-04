@@ -42,7 +42,7 @@ def send_welcome(message):
         "/report - System Dashboard\n"
         "/net - Network Info\n"
         "/services - Critical Services\n\n"
-        "<b>�️ Control</b>\n"
+        "<b>🕹️ Control</b>\n"
         "/top - Process Manager\n"
         "/reboot - Restart System\n"
         "/update - System Update (apt)\n\n"
