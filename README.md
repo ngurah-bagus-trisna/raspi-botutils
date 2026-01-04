@@ -1,44 +1,61 @@
-# Enhanced Linux/Debian Monitoring Bot
+# 🤖 Raspi Monitor Bot v3.0 - ULTIMATE EDITION
 
-A professional, class-based Python bot for monitoring system resources on Linux servers (Debian, Raspberry Pi, etc.). It sends rich reports to Telegram and provides proactive alerts for critical system metrics.
+The comprehensive remote administration suite for Raspberry Pi.
 
-## Features
-- **Comprehensive Reports**: CPU (load & charts), RAM, Disk, Temperature, and Network.
-- **Proactive Alerts**: Automatic notifications for high CPU usage, low disk space, and high temperature.
-- **Interactive Commands**: `/report`, `/sysinfo`, `/top`, `/uptime`.
-- **Modern UI**: HTML-formatted messages with visual progress bars.
-- **Secure**: Credential management via environment variables (`.env`).
+## 🌟 New Features in v3.0
+- **Modular Architecture**: Clean, scalable codebase.
+- **Hardware Abstraction Layer (HAL)**: Safe GPIO control via `gpiozero` with non-Pi fallback.
+- **Advanced Security**: User ID whitelisting & Intruder Detection (SSH logs).
+- **Network Admin**: Wake-on-LAN, Speedtest, Public IP monitoring.
+- **System Doctor**: `apt update` manager, `vcgencmd` diagnostics (Voltage/Throttling).
 
-## Installation
+## 🛠️ Installation
 
-1. **Clone the repository**:
-   ```sh
-   git clone <repo-url>
-   cd raspi-botutils
-   ```
+### 1. Clone & Setup
+```bash
+sudo git clone https://github.com/yourusername/raspi-botutils.git /opt/raspi-botutils
+cd /opt/raspi-botutils
+```
 
-2. **Install dependencies**:
-   ```sh
-   pip install psutil pyTelegramBotAPI python-dotenv
-   ```
+### 2. Dependencies
+```bash
+# System deps
+sudo apt update
+sudo apt install python3-pip python3-venv sqlite3 speedtest-cli libatlas-base-dev
 
-3. **Configure the bot**:
-   - Copy the example environment file: `cp .env.example .env`
-   - Edit `.env` with your `TELEGRAM_TOKEN` and `CHAT_ID`.
-   - (Optional) Adjust alert thresholds in `.env`.
+# Virtual Environment (Optional but recommended)
+python3 -m venv venv
+source venv/bin/activate
 
-4. **Run the bot**:
-   ```sh
-   python raspi-botutils.py
-   ```
+# Install Python libs
+pip install -r requirements.txt
+```
 
-## Systemd Setup (Recommended)
-To run the bot as a background service:
-1. Edit `raspi-botutils.service` to match your paths.
-2. `sudo cp raspi-botutils.service /etc/systemd/system/`
-3. `sudo systemctl daemon-reload`
-4. `sudo systemctl enable --now raspi-botutils.service`
+### 3. Configuration
+```bash
+cp .env.example .env
+nano .env
+```
+**CRITICAL**: You MUST set `ADMIN_USER_IDS` to your Telegram ID (get it from @userinfobot) to use admin commands.
 
-## Screenshots
-![image](https://user-images.githubusercontent.com/69294607/221217501-cbd6c103-a092-49ac-99ac-a19de27a7b4f.png)
+### 4. Install Service
+```bash
+sudo cp raspi-botutils.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable raspi-botutils.service
+sudo systemctl start raspi-botutils.service
+```
 
+## 📱 Command List
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/report` | System Dashboard (Temp/IP/Load) | Admin |
+| `/top` | Process Manager (Interactive Kill) | Admin |
+| `/reboot` | Reboot System | Admin |
+| `/gpio` | Control GPIO Pins (`/gpio 18 on`) | Admin |
+| `/wol` | Wake-on-LAN target | Admin |
+| `/speedtest` | Internet Speed Test | Admin |
+| `/sysinfo` | Hardware Diagnostics | Admin |
+
+## 🛡️ Security
+This bot runs as **ROOT** to perform system tasks. v3.0 enforces a strict **User Whitelist**. Commands from unknown User IDs are ignored/logged.
