@@ -1,40 +1,44 @@
-# Raspberry Pi System Monitoring Bot
+# Enhanced Linux/Debian Monitoring Bot
 
-This is a Python script for monitoring system resources on a Raspberry Pi, and sending a report to a specified Telegram chat using a Telegram bot. The script uses the psutil library for accessing system resources and the telebot library for sending messages via Telegram.
+A professional, class-based Python bot for monitoring system resources on Linux servers (Debian, Raspberry Pi, etc.). It sends rich reports to Telegram and provides proactive alerts for critical system metrics.
 
-## Installation and Usage
-1. Clone or download the repository to your Raspberry Pi.
-2. Install the required dependencies by running the following command in your terminal:
+## Features
+- **Comprehensive Reports**: CPU (load & charts), RAM, Disk, Temperature, and Network.
+- **Proactive Alerts**: Automatic notifications for high CPU usage, low disk space, and high temperature.
+- **Interactive Commands**: `/report`, `/sysinfo`, `/top`, `/uptime`.
+- **Modern UI**: HTML-formatted messages with visual progress bars.
+- **Secure**: Credential management via environment variables (`.env`).
 
-```sh
-sudo apt install python3-pip
-sudo pip3 install psutil telebot tqdm
-```
+## Installation
 
-3. Create a Telegram bot and get the bot token.
-4. Edit the TOKEN and CHAT_ID variables in the script with your bot token and chat ID, respectively.
-5. Copy `raspi-botutils.py` to `/usr/local/bin/`
+1. **Clone the repository**:
+   ```sh
+   git clone <repo-url>
+   cd raspi-botutils
+   ```
 
-```sh
-cp raspi-botutils/main.py /usr/local/bin
-```
+2. **Install dependencies**:
+   ```sh
+   pip install psutil pyTelegramBotAPI python-dotenv
+   ```
 
-6. Run the script in the background using systemd service by doing the following:
-- Copy the `raspi-botutils.service` file to the `/etc/systemd/system/` directory.
-- Reload systemd to load the new service file: `sudo systemctl daemon-reload`
-- Start the service: `sudo systemctl start system_monitoring_bot.service`
-- Check the status of the service: `sudo systemctl status system_monitoring_bot.service`
+3. **Configure the bot**:
+   - Copy the example environment file: `cp .env.example .env`
+   - Edit `.env` with your `TELEGRAM_TOKEN` and `CHAT_ID`.
+   - (Optional) Adjust alert thresholds in `.env`.
 
-The script can also be manually run from the command line using python3 system_monitoring_bot.py.
+4. **Run the bot**:
+   ```sh
+   python raspi-botutils.py
+   ```
 
-## Functionality
-The script provides the following system information:
-- CPU utilization as a percentage and usage percentage per core.
-- RAM usage in megabytes and total RAM in megabytes.
-- Network usage in megabytes sent and received.
-- System uptime in days, hours, and minutes.
+## Systemd Setup (Recommended)
+To run the bot as a background service:
+1. Edit `raspi-botutils.service` to match your paths.
+2. `sudo cp raspi-botutils.service /etc/systemd/system/`
+3. `sudo systemctl daemon-reload`
+4. `sudo systemctl enable --now raspi-botutils.service`
 
-The information is sent as a formatted message to the specified Telegram chat using the `/report` command.
-
+## Screenshots
 ![image](https://user-images.githubusercontent.com/69294607/221217501-cbd6c103-a092-49ac-99ac-a19de27a7b4f.png)
 
