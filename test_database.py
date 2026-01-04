@@ -38,8 +38,8 @@ def test_insert_and_get_metrics(db_manager):
     assert len(hist) == 1
     # Check values (cpu, ram) from tuple
     # SELECT timestamp, cpu_percent, ram_percent
-    assert hist[0][1] == 10.0
-    assert hist[0][2] == 20.0
+    assert hist[0][1] == pytest.approx(10.0)
+    assert hist[0][2] == pytest.approx(20.0)
 
 def test_audit_log(db_manager):
     db_manager.log_command(123, "/test", "SUCCESS")

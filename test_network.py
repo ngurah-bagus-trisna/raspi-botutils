@@ -34,8 +34,8 @@ def test_speedtest():
     with patch('subprocess.check_output') as mock_sub:
         mock_sub.return_value = b'{"download": 100000000, "upload": 50000000, "ping": 10, "server": {"name": "TestServer", "country": "TestCountry"}}'
         res = network.run_speedtest()
-        assert res['download'] == 100.0
-        assert res['upload'] == 50.0
+        assert res['download'] == pytest.approx(100.0)
+        assert res['upload'] == pytest.approx(50.0)
         assert res['ping'] == 10
 
 def test_speedtest_failure():
@@ -44,7 +44,7 @@ def test_speedtest_failure():
         assert res is None
 
 def test_wol():
-    with patch('socket.socket') as mock_sock:
+    with patch('socket.socket'):
         res = network.wake_on_lan("AA:BB:CC:DD:EE:FF")
         assert res is True
         

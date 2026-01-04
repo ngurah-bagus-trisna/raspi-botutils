@@ -17,7 +17,7 @@ def test_reboot_shutdown():
         mock_web.assert_called_with("sudo shutdown now")
 
 def test_service_status():
-    with patch('subprocess.check_call') as mock_call:
+    with patch('subprocess.check_call'):
         res = system.get_service_status("ssh")
         assert res is True
         
