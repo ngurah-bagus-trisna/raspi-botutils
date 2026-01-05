@@ -1,40 +1,61 @@
-# Raspberry Pi System Monitoring Bot
+# 🤖 Raspi Monitor Bot v3.0 - ULTIMATE EDITION
 
-This is a Python script for monitoring system resources on a Raspberry Pi, and sending a report to a specified Telegram chat using a Telegram bot. The script uses the psutil library for accessing system resources and the telebot library for sending messages via Telegram.
+The comprehensive remote administration suite for Raspberry Pi.
 
-## Installation and Usage
-1. Clone or download the repository to your Raspberry Pi.
-2. Install the required dependencies by running the following command in your terminal:
+## 🌟 New Features in v3.0
+- **Modular Architecture**: Clean, scalable codebase.
+- **Hardware Abstraction Layer (HAL)**: Safe GPIO control via `gpiozero` with non-Pi fallback.
+- **Advanced Security**: User ID whitelisting & Intruder Detection (SSH logs).
+- **Network Admin**: Wake-on-LAN, Speedtest, Public IP monitoring.
+- **System Doctor**: `apt update` manager, `vcgencmd` diagnostics (Voltage/Throttling).
 
-```sh
-sudo apt install python3-pip
-sudo pip3 install psutil telebot tqdm
+## 🛠️ Installation
+
+### 1. Clone & Setup
+```bash
+sudo git clone https://github.com/yourusername/raspi-botutils.git /opt/raspi-botutils
+cd /opt/raspi-botutils
 ```
 
-3. Create a Telegram bot and get the bot token.
-4. Edit the TOKEN and CHAT_ID variables in the script with your bot token and chat ID, respectively.
-5. Copy `raspi-botutils.py` to `/usr/local/bin/`
+### 2. Dependencies
+```bash
+# System deps
+sudo apt update
+sudo apt install python3-pip python3-venv sqlite3 speedtest-cli libatlas-base-dev
 
-```sh
-cp raspi-botutils/main.py /usr/local/bin
+# Virtual Environment (Optional but recommended)
+python3 -m venv venv
+source venv/bin/activate
+
+# Install Python libs
+pip install -r requirements.txt
 ```
 
-6. Run the script in the background using systemd service by doing the following:
-- Copy the `raspi-botutils.service` file to the `/etc/systemd/system/` directory.
-- Reload systemd to load the new service file: `sudo systemctl daemon-reload`
-- Start the service: `sudo systemctl start system_monitoring_bot.service`
-- Check the status of the service: `sudo systemctl status system_monitoring_bot.service`
+### 3. Configuration
+```bash
+cp .env.example .env
+nano .env
+```
+**CRITICAL**: You MUST set `ADMIN_USER_IDS` to your Telegram ID (get it from @userinfobot) to use admin commands.
 
-The script can also be manually run from the command line using python3 system_monitoring_bot.py.
+### 4. Install Service
+```bash
+sudo cp raspi-botutils.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable raspi-botutils.service
+sudo systemctl start raspi-botutils.service
+```
 
-## Functionality
-The script provides the following system information:
-- CPU utilization as a percentage and usage percentage per core.
-- RAM usage in megabytes and total RAM in megabytes.
-- Network usage in megabytes sent and received.
-- System uptime in days, hours, and minutes.
+## 📱 Command List
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/report` | System Dashboard (Temp/IP/Load) | Admin |
+| `/top` | Process Manager (Interactive Kill) | Admin |
+| `/reboot` | Reboot System | Admin |
+| `/gpio` | Control GPIO Pins (`/gpio 18 on`) | Admin |
+| `/wol` | Wake-on-LAN target | Admin |
+| `/speedtest` | Internet Speed Test | Admin |
+| `/sysinfo` | Hardware Diagnostics | Admin |
 
-The information is sent as a formatted message to the specified Telegram chat using the `/report` command.
-
-![image](https://user-images.githubusercontent.com/69294607/221217501-cbd6c103-a092-49ac-99ac-a19de27a7b4f.png)
-
+## 🛡️ Security
+This bot runs as **ROOT** to perform system tasks. v3.0 enforces a strict **User Whitelist**. Commands from unknown User IDs are ignored/logged.

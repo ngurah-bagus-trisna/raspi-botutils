@@ -1,0 +1,20 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.9, pytest-8.0.0, pluggy-1.6.0
+rootdir: C:\Users\maule\Desktop\repo\raspi-botutils
+plugins: cov-4.1.0
+collected 8 items
+
+test_network.py E.......                                                 [100%]
+
+=================================== ERRORS ====================================
+_____________________ ERROR at setup of test_get_local_ip _____________________
+file C:\Users\maule\Desktop\repo\raspi-botutils\test_network.py, line 6
+  def test_get_local_ip(mocker):
+E       fixture 'mocker' not found
+>       available fixtures: cache, capfd, capfdbinary, caplog, capsys, capsysbinary, cov, doctest_namespace, monkeypatch, no_cover, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\maule\Desktop\repo\raspi-botutils\test_network.py:6
+=========================== short test summary info ===========================
+ERROR test_network.py::test_get_local_ip
+========================= 7 passed, 1 error in 0.11s ==========================

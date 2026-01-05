@@ -1,13 +1,19 @@
 [Unit]
-Description=Monitoring Raspi using Telegram
+Description=Raspi Monitor Bot - Ultimate Edition
 After=network-online.target
+Wants=network-online.target
 
 [Service]
+Type=simple
 User=root
-ExecStart=/usr/bin/python3 /usr/local/bin/raspi-botutils/main.py
+WorkingDirectory=/opt/raspi-botutils
+ExecStart=/usr/bin/python3 /opt/raspi-botutils/run_bot.py
 Restart=always
 RestartSec=10
-StartLimitInterval=0
+EnvironmentFile=/opt/raspi-botutils/.env
+StandardOutput=journal
+StandardError=journal
+WatchdogSec=60s
 
 [Install]
 WantedBy=multi-user.target
